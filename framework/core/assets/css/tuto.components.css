@@ -85,6 +85,10 @@ div.Selector.Expanded div.Model
 {
 	visibility: visible;
 	-webkit-animation: fadeInDown .4s;
+	-moz-animation: fadeInDown .4s;
+	-ms-animation: fadeInDown .4s;
+	-o-animation: fadeInDown .4s;
+	animation: fadeInDown .4s;
 }
 div.Selector.Collapsed div.Model
 {
@@ -219,5 +223,9 @@ div.SwitchSelector div.Model div.VOProxy div.Name
 	background: #69d2e7;
 	color: #FFF;
 	-webkit-animation: pulse .2s;
+	-moz-animation: pulse .2s;
+	-ms-animation: pulse .2s;
+	-o-animation: pulse .2s;
+	animation: pulse .2s;
 }
 /* end SWITCH COMPONENT */
