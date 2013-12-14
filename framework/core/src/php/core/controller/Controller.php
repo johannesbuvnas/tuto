@@ -34,8 +34,14 @@ class Controller
 	{
 		$command->initializeFacadeKey( $this->_facadeKey );
 		$command->register();
+		$this->_commandMap[ $command->getName() ] = $command;
 		$command->onRegister();
 
 		return $command;
+	}
+
+	public function hasCommand( $commandName )
+	{
+		return array_key_exists( $commandName, $this->_commandMap );
 	}
 }

@@ -7,9 +7,9 @@ class PostTypeProxy extends Proxy
 
 	public function add( PostTypeVO $item, $key = NULL )
 	{
-		if( $this->getFacade()->model->hasProxy( MetaProxy::NAME ) )
+		if( $this->getFacade()->model->hasProxy( MetaBoxProxy::NAME ) )
 		{
-			foreach( $this->getFacade()->model->getProxy( MetaProxy::NAME )->getMap() as $metaVO )
+			foreach( $this->getFacade()->model->getProxy( MetaBoxProxy::NAME )->getMap() as $metaVO )
 			{
 				if($metaVO->hasPostType( $item->getName() )) $item->addMeta( $metaVO );
 			}

@@ -32,6 +32,8 @@ class View
 	/* PUBLIC METHODS */
 	public function registerMediator( Mediator $mediator )
 	{
+		if( $this->hasMediator( $mediator->getName() ) ) return FALSE;
+
 		$mediator->initializeFacadeKey( $this->_facadeKey );
 		$this->_mediatorMap[ $mediator->getName() ] = $mediator;
 		$mediator->onRegister();
@@ -41,11 +43,11 @@ class View
 
 	public function getMediator( $mediatorName )
 	{
-		return $this->hasMediator( $mediatorName ) ? $this->_mediatorMap[ $mediatorName ] : new Mediator();
+		return $this->hasMediator( $mediatorName ) ? $this->_mediatorMap[ $mediatorName ] : NULL;
 	}
 
 	public function hasMediator( $mediatorName )
 	{
-		return isset( $this->_mediatorMap[ $mediatorName ] );
+		return array_key_exists( $mediatorName, $this->_mediatorMap );
 	}
 }

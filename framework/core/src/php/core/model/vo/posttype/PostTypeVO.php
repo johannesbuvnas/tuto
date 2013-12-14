@@ -19,9 +19,9 @@ class PostTypeVO extends ValueObject implements IPostTypeVO
 		return isset( $this->_fieldsMap[ $fieldName ] );
 	}
 
-	public function hasMeta( $metaName )
+	public function hasMetaBox( $metaName )
 	{
-		return isset( $this->_metaMap[ $metaName ] );
+		return array_key_exists( $metaName, $this->_metaMap );
 	}
 
 	/* SET AND GET */
@@ -34,13 +34,13 @@ class PostTypeVO extends ValueObject implements IPostTypeVO
 		return $this->_fieldsMap[ $fieldName ];
 	}
 
-	public function addMeta( MetaVO $metaVO )
+	public function addMetaBox( MetaBox $metaBox )
 	{
 		$this->_metaMap[ $metaVO->getName() ] = $metaVO;
 	}
-	public function getMeta( $metaName )
+	public function getMeta( $metaName, $postID )
 	{
-		return $this->_metaMap[ $metaName ];
+		return NULL;
 	}
 
 	public function getArguments()
@@ -80,10 +80,13 @@ class PostTypeVO extends ValueObject implements IPostTypeVO
 
 interface IPostTypeVO
 {
+	/* METHODS */
+	public function hasMetaBox( $metaName );
+	
 	/* SET AND GET */
 	public function addField( PostTypeFieldVO $fieldVO );
 	public function getField( $fieldName );
-	public function addMeta( MetaVO $metaVO );
-	public function getMeta( $metaName );
+	public function addMetaBox( MetaBox $metaBox );
+	public function getMeta( $metaName, $postID );
 	public function getArguments();
 }

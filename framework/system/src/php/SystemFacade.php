@@ -4,7 +4,7 @@ namespace tutons;
 class SystemFacade extends Facade
 {
 	/* CONSTANTS */
-	const VERSION = "1";
+	const VERSION = "1.0";
 
 	public static $PRODUCTION_MODE = false;
 

@@ -5,20 +5,25 @@ class MetaCommand extends Command implements IMetaBoxCommand
 {
 
 	/* VARS */
-	private $_metaVO;
+	private $_metaBox;
 
-	function __construct( $metaVO )
+	private $_mediator;
+
+	function __construct( $metaBox, $mediator = NULL )
 	{
-		$this->setMetaVO( $metaVO );
+		$this->setMetaBox( $metaBox );
+		$this->setMediator( $mediator ? $mediator : new MetaBoxProxyMediator( $metaBox ) );
 	}
 
 
 	/* ACTIONS */
 	final public function register()
 	{
-		if( !$this->getFacade()->model->hasProxy( MetaProxy::NAME ) ) $this->getFacade()->model->registerProxy( new MetaProxy() );
+		if( !$this->getFacade()->model->hasProxy( MetaBoxProxy::NAME ) ) $this->getFacade()->model->registerProxy( new MetaBoxProxy() );
 
-		$this->getFacade()->model->getProxy( MetaProxy::NAME )->add( $this->getMetaVO(), $this->getMetaVO()->getName() );
+		if( !$this->getFacade()->view->hasMediator( $this->getMediator()->getName() ) ) $this->getFacade()->view->registerMediator( $this->getMediator() );
+
+		$this->getFacade()->model->getProxy( MetaBoxProxy::NAME )->add( $this->getMetaBox(), $this->getMetaBox()->getName() );
 
 		add_action( self::HOOK_REGISTER, array( $this, "registerMetaBox" ) );
 		$this->saveOn( self::HOOK_SAVE );
@@ -26,15 +31,15 @@ class MetaCommand extends Command implements IMetaBoxCommand
 
 	public function registerMetaBox()
 	{
-		foreach($this->getMetaVO()->getSupportedPostTypes() as $postType)
+		foreach($this->getMetaBox()->getSupportedPostTypes() as $postType)
 		{
 			add_meta_box( 
-				$this->getMetaVO()->getName(),
-				$this->getMetaVO()->getTitle(),
+				$this->getMetaBox()->getName(),
+				$this->getMetaBox()->getTitle(),
 				array( $this, "render" ),
 				$postType,
-				$this->getMetaVO()->getContext(),
-				$this->getMetaVO()->getPriority(),
+				$this->getMetaBox()->getContext(),
+				$this->getMetaBox()->getPriority(),
 				null
 			);
 		}
@@ -42,24 +47,30 @@ class MetaCommand extends Command implements IMetaBoxCommand
 
 	public function render()
 	{
-		wp_nonce_field( $this->getName(), $this->getNonce() );
+		if(!$this->getFacade()->view->hasMediator( $this->getMediator()->getName() )) $this->getFacade()->view->registerMediator( $this->getMediator() );
 
-		if(!$this->getFacade()->view->hasMediator( $this->getMetaVO()->getMediator()->getName() )) $this->getFacade()->view->registerMediator( $this->getMetaVO()->getMediator() );
-
-		$this->getMetaVO()->getMediator()->parse( "metaVO", $this->getMetaVO() );
-
-		$this->getMetaVO()->getMediator()->render();
+		$mediator = $this->getFacade()->view->getMediator(  $this->getMediator()->getName() );
+		$mediator->parse( "nonce", $this->getNonce() );
+		$mediator->parse( "postID", array_key_exists( "post", $_GET ) ? $_GET['post'] : 0 );
+		$mediator->render();
 	}
 
 	public function save( $postID )
 	{
-		foreach( $this->getMetaVO()->getFields() as $metaBoxFieldVO )
+		$this->cleanup( $postID );
+		update_post_meta( $postID, $this->getMetaBox()->getName(), $_POST[ $this->getMetaBox()->getName() ] ) || add_post_meta( $postID, $this->getMetaBox()->getName(), $_POST[ $this->getMetaBox()->getName() ], true );
+		
+		$map = $this->getMetaBox()->getMetaBoxMap( $postID );
+
+		foreach( $map as $metaBoxMap )
 		{
-			if(isset( $_POST[ $metaBoxFieldVO->getKey() ] ))
+			foreach( $metaBoxMap as $metaVO )
 			{
-				$metaBoxFieldVO->setValue( $_POST[ $metaBoxFieldVO->getKey() ], $postID );
+				if( array_key_exists( $metaVO->getName(), $_POST ) ) $metaVO->setValue( $_POST[ $metaVO->getName() ] );
 			}
 		}
+
+		return TRUE;
 	}
 
 	public function saveOn( $hookNames )
@@ -70,10 +81,33 @@ class MetaCommand extends Command implements IMetaBoxCommand
 		return $this;
 	}
 
+	public function cleanup( $postID )
+	{
+		$map = $this->getMetaBox()->getMetaBoxMap( $postID );
+		foreach( $map as $metaBoxMap )
+		{
+			foreach( $metaBoxMap as $metaVO )
+			{
+				$metaVO->setValue( NULL );
+			}
+		}
+
+		return delete_post_meta( $postID, $this->getMetaBox()->getName() );
+	}
+
 	/* METHODS */
 
 
 	/* SET AND GET */
+	public function setMediator( Mediator $mediator )
+	{
+		$this->_mediator = $mediator;
+	}
+	public function getMediator()
+	{
+		return $this->_mediator;
+	}
+
 	public function setSaveHook( $hookName )
 	{
 		$this->_hookSave = $hookName;
@@ -85,7 +119,7 @@ class MetaCommand extends Command implements IMetaBoxCommand
 
 	public function getName()
 	{
-		return $this->getMetaVO()->getName();
+		return $this->getMetaBox()->getName();
 	}
 
 	public function getNonce()
@@ -93,14 +127,13 @@ class MetaCommand extends Command implements IMetaBoxCommand
 		return $this->getName() . "_nonce";
 	}
 
-	public function setMetaVO( MetaVO $vo )
+	public function setMetaBox( MetaBox $metaBox )
 	{
-		$this->_metaVO = $vo;
+		$this->_metaBox = $metaBox;
 	}
-
-	public function getMetaVO()
+	public function getMetaBox()
 	{
-		return $this->_metaVO;
+		return $this->_metaBox;
 	}
 
 	/* EVENT LISTENERS */
@@ -108,7 +141,7 @@ class MetaCommand extends Command implements IMetaBoxCommand
 	{
 		$postType = get_post_type( $postID );
 
-		if( in_array( $postType, $this->getMetaVO()->getSupportedPostTypes() ) )
+		if( in_array( $postType, $this->getMetaBox()->getSupportedPostTypes() ) )
 		{
 			if( WordPressUtil::verifyNonce( $this->getNonce(), $this->getName() ) )
 			{
@@ -128,9 +161,14 @@ interface IMetaBoxCommand
 	public function registerMetaBox();
 	public function render();
 	public function saveOn( $hookName );
+	public function cleanup( $postID );
+
+	/* METHODS */
 
 	/* SET AND GET */
 	public function getNonce();
-	public function setMetaVO( MetaVO $vo );
-	public function getMetaVO();
+	public function setMetaBox( MetaBox $metaBox );
+	public function getMetaBox();
+	public function setMediator( Mediator $mediator );
+	public function getMediator();
 }

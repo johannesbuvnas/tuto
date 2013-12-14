@@ -69,8 +69,8 @@ class Command extends CoreClass implements ICommand
 	{
 		if( $this->hasReachedExecutionLimit() ) return;
 
-		call_user_func_array( array( $this, "execute" ), func_get_args() );
-
 		$this->_executions++;
+
+		return call_user_func_array( array( $this, "execute" ), func_get_args() );
 	}
 }

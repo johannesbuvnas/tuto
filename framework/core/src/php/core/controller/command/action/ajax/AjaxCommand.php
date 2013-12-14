@@ -18,8 +18,8 @@ class AjaxCommand extends ActionCommand
 	/* ACTIONS */
 	public function register()
 	{
-		parent::register( "wp_ajax_" . $this->getName() );
-		parent::register( "wp_ajax_nopriv_" . $this->getName() );
+		add_action( "wp_ajax_" . $this->getName(), array( $this, "preExecution" ) );
+		add_action( "wp_ajax_nopriv_" . $this->getName(), array( $this, "preExecution" ) );
 	}
 
 	/* METHODS */
