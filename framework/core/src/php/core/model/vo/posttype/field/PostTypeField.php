@@ -1,7 +1,7 @@
 <?php
 namespace tutons;
 
-class PostTypeFieldVO extends ValueObject
+class PostTypeField extends ValueObject
 {
 	/* SET AND GET */
 	public function setValue( $value, $postID )

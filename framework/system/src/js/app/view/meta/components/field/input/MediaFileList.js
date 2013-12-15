@@ -98,7 +98,7 @@ function( tutons, jquery, ImageItem )
 				{
 					var image = value[key];
 
-					addImage( image.id, image.imageURL );
+					addImage( image.id, image.thumbnail );
 				}
 			}
 

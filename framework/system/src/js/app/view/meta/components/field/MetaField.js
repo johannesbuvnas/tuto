@@ -28,6 +28,7 @@ function( tutons, TextareaWYSIWYGInput, base64, MediaFileList )
 
 		var draw = function()
 		{
+			console.log(_attributes);
 			_label = _element.find( "label" );
 			_label.attr( "for", _attributes.name + "_" + _metaBoxID );
 
@@ -84,8 +85,6 @@ function( tutons, TextareaWYSIWYGInput, base64, MediaFileList )
 
 		this.change = function()
 		{
-			console.log("Meta Field Change");
-
 			if(!_inputComponent) return;
 
 			var event = new tutons.core.controller.event.Event( "change", { name : _attributes.name, value : _inputComponent.getValue() } );

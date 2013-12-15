@@ -6,7 +6,7 @@ class PostTypeCommand extends Command implements IPostTypeCommand
 	/* VARS */
 	private $_postTypeVO;
 
-	public function __construct( PostTypeVO $postTypeVO )
+	public function __construct( PostType $postTypeVO )
 	{	
 		$this->setPostTypeVO( $postTypeVO );
 	}
@@ -25,7 +25,7 @@ class PostTypeCommand extends Command implements IPostTypeCommand
 	}
 
 	/* SET AND GET */
-	public function setPostTypeVO( PostTypeVO $postTypeVO )
+	public function setPostTypeVO( PostType $postTypeVO )
 	{
 		$this->_postTypeVO = $postTypeVO;
 	}
@@ -44,6 +44,6 @@ interface IPostTypeCommand
 	public function registerPostType();
 
 	/* SET AND GET */
-	public function setPostTypeVO( PostTypeVO $postTypeVO );
+	public function setPostTypeVO( PostType $postTypeVO );
 	public function getPostTypeVO();
 }

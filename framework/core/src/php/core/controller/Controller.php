@@ -32,12 +32,19 @@ class Controller
 	/* PUBLIC METHODS */
 	public function registerCommand( Command $command )
 	{
+		if( $this->hasCommand( $command->getName() ) ) return $this->getCommand( $command->getName() );
+		
 		$command->initializeFacadeKey( $this->_facadeKey );
 		$command->register();
 		$this->_commandMap[ $command->getName() ] = $command;
 		$command->onRegister();
 
 		return $command;
+	}
+
+	public function getCommand( $commandName )
+	{
+		return $this->_commandMap[ $commandName ];
 	}
 
 	public function hasCommand( $commandName )

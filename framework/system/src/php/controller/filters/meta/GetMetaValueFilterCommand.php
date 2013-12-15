@@ -36,7 +36,7 @@ class GetMetaValueFilterCommand extends FilterCommand
 
 				$map[] = array(
 					"id" => $attachmentID,
-					"imageURL" => $src[0]
+					"thumbnail" => $src[0]
 				);
 			}
 		}

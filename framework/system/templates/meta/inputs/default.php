@@ -1,8 +1,10 @@
 <?php
 	$value = $metaVO->getValue();
 
-	if( count( $value ) == 1 && is_string( $value[0] ) ) $value = base64_encode( $value[0] );
-	else if( count( $value ) == 0 ) $value = "";
+	if( is_string($value) ) $value = base64_encode( $value );
+
+	// if( count( $value ) == 1 && is_string( $value[0] ) ) $value = base64_encode( $value[0] );
+	// else if( count( $value ) == 0 ) $value = "";
 	
 	$vo = array();
 	$vo['title'] = $metaField->getTitle();

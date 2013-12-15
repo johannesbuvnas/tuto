@@ -7,11 +7,11 @@ class MetaBoxProxyMediator extends SystemMediator
 
 	private $_metaBox;
 	private $_metaBoxMediator;
+	private $_postID;
 
-	function __construct( $metaBox )
+	function __construct()
 	{
-		$this->setMetaBox( $metaBox );
-		$this->setName( self::NAME . "_" . $this->getMetaBox()->getName() );
+		$this->setName( self::NAME );
 		$this->setTemplate( "meta/meta-box-proxy.php" );
 	}
 
@@ -22,6 +22,8 @@ class MetaBoxProxyMediator extends SystemMediator
 
 	public function render()
 	{
+		$this->parse( "metaBox", $this->_metaBox );
+		$this->parse( "postID", $this->_postID );
 		$this->_metaBoxMediator->setMetaBox( $this->getMetaBox() );
 		$this->parse( "metaBoxMediator", $this->_metaBoxMediator );
 
@@ -32,11 +34,18 @@ class MetaBoxProxyMediator extends SystemMediator
 	public function setMetaBox( MetaBox $metaBox )
 	{
 		$this->_metaBox = $metaBox;
-
-		$this->parse( "metaBox", $this->_metaBox );
 	}
 	public function getMetaBox()
 	{
 		return $this->_metaBox;
+	}
+
+	public function setPostID( $postID )
+	{
+		$this->_postID = $postID;
+	}
+	public function getPostID()
+	{
+		return $this->_postID;
 	}
 }

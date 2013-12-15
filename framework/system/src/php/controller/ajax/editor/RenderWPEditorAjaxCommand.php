@@ -14,7 +14,7 @@ class RenderWPEditorAjaxCommand extends AjaxCommand
 		$id = $_REQUEST[ 'id' ];
 		$settings = array(
 			// "quicktags" => FALSE,
-			'textarea_rows' => 30,
+			// 'textarea_rows' => 30,
 		);		
 
 		wp_editor( $content, $id, $settings );

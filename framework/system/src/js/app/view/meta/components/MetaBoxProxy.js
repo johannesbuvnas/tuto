@@ -42,7 +42,6 @@ function( tutons, MetaBox )
 
 			_proxyElement.find(".MetaBox").each( function()
 			{
-				console.log("ADDING DEFAULT METABOX");
 				addMetaBox( $( this ) );
 			});
 
@@ -83,12 +82,14 @@ function( tutons, MetaBox )
 		{
 			var data = 
 			{
-				action : "tuto_render_meta_box",
+				action : "tuto/ajax/render/metabox",
 				nonce : Tuto.nonce,
-				postID : _postID,
+				postID : 0,
 				metaBoxName : _metaBoxName,
 				key : 0
 			};
+
+			console.log(data);
 
 			$.ajax({
 				type: "post",
@@ -144,6 +145,7 @@ function( tutons, MetaBox )
 
 		var onGetMetaBoxHTML = function(e)
 		{
+			console.log(e);
 			addMetaBox( $( e ), true ).reset();
 		};
 

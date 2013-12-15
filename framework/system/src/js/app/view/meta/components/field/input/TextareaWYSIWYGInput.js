@@ -26,6 +26,8 @@ function( tutons, jquery )
 		{
 			_this.setElement( $( "<div></div>" ) );
 
+			switchEditors.go( "tutons-editor", "tmce" );
+
 			requestEditor();
 		};
 
@@ -35,7 +37,7 @@ function( tutons, jquery )
 			_settings.quicktags = false;
 			var data = 
 			{
-				action : "tuto_render_wp_editor",
+				action : "tuto/ajax/render/wp_editor",
 				nonce : Tuto.nonce,
 				content : _content,
 				id : _id,
@@ -55,6 +57,15 @@ function( tutons, jquery )
 		/* SET AND GET */
 		this.setValue = function( value )
 		{
+			if (typeof value == 'string' || value instanceof String)
+			{
+
+			}
+			else
+			{
+				value = "";
+			}
+			
 			if( _editor )
 			{
 				_editor.setContent( value ? value : "" );
@@ -77,8 +88,6 @@ function( tutons, jquery )
 		{
 			_this.getElement().append( $(e) );
 
-			quicktags( {id : _id} );
-
 			// tinyMCE.init( {
 			//     skin : "wp_theme",
 			//     // mode : "exact",
@@ -86,8 +95,16 @@ function( tutons, jquery )
 			//     // theme: "advanced"
 			// } );
 
-			tinyMCE.execCommand("mceAddControl", false, _id);
+			// _this.getElement().find( ".switch-tmce" ).trigger( "click" );
+			// var qtags = quicktags( {id : _id} );
+			// console.log(qtags);
+			// console.log( switchEditors.go( _id ) );
+
+			quicktags( {id : _id} );
+			tinyMCE.execCommand( "mceAddControl", false, _id );
 			// tinymce.init( tinyMCEPreInit.mceInit[ _id ] );
+
+			// console.log( switchEditors.go( _id ) );
 
 			_editor = tinyMCE.get( _id );
 			$( _editor.getBody() ).on( "blur" , onEditorBlur );
@@ -101,18 +118,16 @@ function( tutons, jquery )
 
 		var onAjaxError = function(e)
 		{
-			console.log(e);
+			// console.log(e);
 		};
 
 		var onEditorFocus = function(e)
 		{
-			console.log("EDITOR FOCUS");
 			wpActiveEditor = _id;
 		};
 
 		var onEditorBlur = function(e)
 		{
-			console.log("EDITOR BLUR");
 			wpActiveEditor = null;
 		};
 

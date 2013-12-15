@@ -11,6 +11,20 @@ class AdminEnqueueScriptsCommand extends ActionCommand
 	function execute()
 	{
 		wp_enqueue_media();
+		wp_enqueue_script(array
+		(
+			// 'jquery',
+			// 'jquery-ui-core',
+			// 'jquery-ui-tabs',
+			// 'jquery-ui-sortable',
+			// 'wp-color-picker',
+			// 'thickbox',
+			// 'media-upload',
+			'editor',
+			'quicktags',
+			'tiny_mce'
+		));
+		wp_enqueue_script('tiny_mce');
 
 		wp_enqueue_style( 'tuto-components', $this->getFacade()->getURL( "/assets/css/tuto.components.css" ), NULL, SystemFacade::VERSION );
 		wp_enqueue_style( 'tuto-admin', $this->getFacade()->getURL( "/assets/css/tuto.admin.css" ), NULL, SystemFacade::VERSION );

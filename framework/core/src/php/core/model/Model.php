@@ -34,6 +34,8 @@ class Model
 		$proxy->initializeFacadeKey( $this->_facadeKey );
 		$this->_proxyMap[ $proxy->getName() ] = $proxy;
 		$proxy->onRegister();
+
+		return $proxy;
 	}
 
 	public function getProxy( $name )

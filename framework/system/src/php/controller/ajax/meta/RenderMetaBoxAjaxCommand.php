@@ -8,9 +8,14 @@ class RenderMetaBoxAjaxCommand extends AjaxCommand
 		parent::__construct( AjaxCommands::RENDER_META_BOX );
 	}
 
+	function register()
+	{
+		parent::register();
+	}
+
 	public function execute()
 	{
-		$metaBox = $this->getFacade()->model->getProxy( MetaBoxProxy::NAME )->get( $_REQUEST['metaBoxName'] );
+		$metaBox = $this->getFacade()->model->getProxy( MetaBoxProxy::NAME )->get( $_REQUEST[ 'metaBoxName' ] );
 		$key = $_REQUEST['key'];
 		$metaFieldMap = $metaBox->getMetaFieldMap( $_REQUEST['postID'], $_REQUEST['key'] );
 

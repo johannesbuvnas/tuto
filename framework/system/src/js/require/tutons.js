@@ -307,7 +307,13 @@ function( $ )
 							/* ACTIONS */
 							this.dispatch = function( name, body )
 							{
-								_this.getFacade().view.dispatch( new Event( name, body ) );
+								_this.getFacade().view.dispatchEvent( new _ns.core.controller.event.Event( name, body ) );
+							};
+
+							/* METHODS */
+							this.addEventListener = function( name, callback )
+							{
+								_this.getFacade().view.addEventListener( name, callback );
 							};
 
 							/* SET AND GET */

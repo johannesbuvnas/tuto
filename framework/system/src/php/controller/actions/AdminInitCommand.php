@@ -12,6 +12,7 @@ class AdminInitCommand extends ActionCommand
 	{
 		$this->getFacade()->controller->registerCommand( new AdminHeadCommand() );
 		$this->getFacade()->controller->registerCommand( new AdminEnqueueScriptsCommand() );
+		$this->getFacade()->controller->registerCommand( new AdminFooterCommand() );
 		
 		// // var_dump( $this->getFacade()->model->getProxy( PostTypeProxy::NAME )->get( "custom_post_type" )->getMeta( "custom_meta" )->getField( "custom_field" )->setValue( "phuck u", 8 ) );
 

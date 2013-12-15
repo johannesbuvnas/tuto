@@ -5,17 +5,18 @@ class PostTypeProxy extends Proxy
 {
 	const NAME = __CLASS__;
 
-	public function add( PostTypeVO $item, $key = NULL )
+	public function add( PostType $item )
 	{
 		if( $this->getFacade()->model->hasProxy( MetaBoxProxy::NAME ) )
 		{
-			foreach( $this->getFacade()->model->getProxy( MetaBoxProxy::NAME )->getMap() as $metaVO )
+			foreach( $this->getFacade()->model->getProxy( MetaBoxProxy::NAME )->getMap() as $metaBox )
 			{
-				if($metaVO->hasPostType( $item->getName() )) $item->addMeta( $metaVO );
+				if($metaBox->hasPostType( $item->getName() )) $item->addMetaBox( $metaBox );
 			}
 		}
 
-		if( is_null( $key ) ) $this->_map[] = $item;
-		else $this->_map[ $key ] = $item;
+		register_post_type( $item->getName(), $item->getArguments() );
+
+		parent::add( $item, $item->getName() );
 	}
 }

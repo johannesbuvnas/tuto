@@ -5,6 +5,7 @@ class ValueObject implements IValueObject
 {
 	/* VARS */
 	private $_name;
+	private $_value;
 
 
 	function __construct( $name )
@@ -13,13 +14,13 @@ class ValueObject implements IValueObject
 	}
 
 	/* SET AND GET */
-	public function setValue()
+	public function setValue( $value )
 	{
-
+		$this->_value = $value;
 	}
 	public function getValue()
 	{
-		
+		return $this->_value;
 	}
 	function setName( $name )
 	{

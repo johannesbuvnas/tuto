@@ -32,6 +32,22 @@ class MetaBox extends ValueObject implements IMetaBox
 		$this->setPriority( $priority );
 	}
 
+	/* ACTIONS */
+	public function delete( $postID )
+	{
+		$map = $this->getMetaBoxMap( $postID );
+		foreach( $map as $metaBoxMap )
+		{
+			foreach( $metaBoxMap as $metaVO )
+			{
+				$metaVO->setValue( NULL );
+			}
+		}
+
+		return delete_post_meta( $postID, $this->getName() );
+	}
+
+	/* SET AND GET */
 	public function getCardinality( $postID )
 	{
 		$cardinality = intval( get_post_meta( $postID, $this->getName(), TRUE ) );

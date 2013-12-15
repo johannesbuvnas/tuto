@@ -7,6 +7,10 @@
     clear: both;
 }
 
+#wp-tutons-editor-wrap
+{
+	display: none;
+}
 
 div.MetaBox
 {
@@ -28,6 +32,7 @@ div.MetaBox div.title
 	cursor: move;
 	color: #333;
 	font-weight: 600;
+	text-decoration: underline;
 	/*border-left: 1px solid #eaece7;
 	border-top: 1px solid #eaece7;
 	border-right: 1px solid #eaece7;*/

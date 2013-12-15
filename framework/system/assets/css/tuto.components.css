@@ -275,6 +275,10 @@ div.MediaFileList .ImageItem .RemoveButton
 	height: 15px;
 	background: white url( "../images/symbol-x.png" ) center center no-repeat;
 }
+div.MediaFileList .ImageItem .RemoveButton:hover
+{
+	background: #f9f9f9 url( "../images/symbol-x.png" ) center center no-repeat;
+}
 
 div.MediaFileList .ImageItem .RemoveButton .Symbol
 {
