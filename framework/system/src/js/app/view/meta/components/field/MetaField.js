@@ -2,9 +2,9 @@ define([
 	"tutons",
 	"app/view/meta/components/field/input/TextareaWYSIWYGInput",
 	"base64",
-	"app/view/meta/components/field/input/MediaFileList"
+	"app/view/meta/components/field/input/attachment/AttachmentList"
 ],
-function( tutons, TextareaWYSIWYGInput, base64, MediaFileList )
+function( tutons, TextareaWYSIWYGInput, base64, AttachmentList )
 {
 	function MetaField( metaBoxID, element )
 	{
@@ -39,9 +39,9 @@ function( tutons, TextareaWYSIWYGInput, base64, MediaFileList )
 					_inputComponent = new TextareaWYSIWYGInput( _attributes.value, _attributes.name + "_" + _metaBoxID, _attributes.type.settings );
 
 				break;
-				case "image_list":
+				case "attachment":
 
-					_inputComponent = new MediaFileList( _attributes.type.settings );
+					_inputComponent = new AttachmentList( _attributes.type.settings );
 					_inputComponent.setName( _attributes.name );
 					_inputComponent.setValue( _attributes.value );
 

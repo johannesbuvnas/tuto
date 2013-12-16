@@ -239,52 +239,83 @@ div.SwitchSelector div.Model div.VOProxy div.Name
 }
 /* end SWITCH COMPONENT */
 
-div.MediaFileList
+div.AttachmentList
 {
 	width: 100%;
-	background: #FFF;
 }
 
-div.MediaFileList .AddButton,
-div.MediaFileList .ImageItem
+div.AttachmentList .AddButton,
+div.AttachmentList .AttachmentItem
 {
 	width: 150px;
 	height: 150px;
 	display: block;
 	float: left;
-	background: #f9f9f9;
+	background: #FFF;
 	border: 0;
 	padding: 0;
 	border-radius: 0;
-	margin: 5px;
+	margin: 1px;
 	position: relative;
 }
 
-div.MediaFileList .ImageItem img
+div.AttachmentList .AttachmentItem
 {
-	width: 100%;
-	height: 100%;
+	overflow: hidden;
+	text-align: center;
 }
 
-div.MediaFileList .ImageItem .RemoveButton
+div.AttachmentList .AttachmentItem img
+{
+	max-width: 100%;
+	height: auto;
+}
+
+div.AttachmentList .AttachmentItem img.Icon
+{
+	padding-top: 20%;
+}
+
+div.AttachmentList .AttachmentItem .AttachmentTitle
+{
+	width: 100%;
+	background: #f1f1f1;
+	font-size: 12px;
+	padding: 5px;
+	position: absolute;
+	bottom: 0;
+	word-wrap: break-word;
+}
+
+div.AttachmentList .AttachmentItem .RemoveButton
 {
 	position: absolute;
 	top: 5px;
 	right: 5px;
 	width: 15px;
 	height: 15px;
+	background: #f1f1f1 url( "../images/symbol-x.png" ) center center no-repeat;
+	border-radius: 0;
+	border: 0;
+}
+div.AttachmentList .AttachmentItem .RemoveButton:hover
+{
 	background: white url( "../images/symbol-x.png" ) center center no-repeat;
 }
-div.MediaFileList .ImageItem .RemoveButton:hover
+div.AttachmentList .AttachmentItem .RemoveButton:hover
 {
-	background: #f9f9f9 url( "../images/symbol-x.png" ) center center no-repeat;
+	background: #e04b44 url( "../images/symbol-x-white.png" ) center center no-repeat;
 }
 
-div.MediaFileList .ImageItem .RemoveButton .Symbol
+div.AttachmentList .AttachmentItem .RemoveButton .Symbol
 {
 }
 
-div.MediaFileList .AddButton
+div.AttachmentList .AddButton
 {
-	background: #f9f9f9 url( "../images/symbol-add.png" ) center center no-repeat;
+	background: #FFF url( "../images/symbol-add.png" ) center center no-repeat;
+}
+div.AttachmentList .AddButton:hover
+{
+	background: #69D2E7 url( "../images/symbol-add-white.png" ) center center no-repeat;
 }

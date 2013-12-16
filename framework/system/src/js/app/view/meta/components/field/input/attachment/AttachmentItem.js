@@ -3,11 +3,14 @@ define([
 ],
 function( tutons )
 {
-	function ImageItem( imageURL )
+	function AttachmentItem( id, title, thumbnailURL, iconURL )
 	{
 		/* VARS */
 		var _this = this;
-		var _imageURL = imageURL;
+		var _id = id;
+		var _title = title;
+		var _thumbnailURL = thumbnailURL;
+		var _iconURL = iconURL;
 
 		/* DISPLAY OBJECTS */
 		var _element;
@@ -21,12 +24,16 @@ function( tutons )
 
 		var draw = function()
 		{
-			_element = $( "<div class='ImageItem'></div>" );
+			_element = $( "<div class='AttachmentItem'></div>" );
 
 			_this.input = new tutons.components.form.input.Input();
+			_this.input.setValue( _id );
 			_element.append( _this.input.getElement() );
 
-			_element.append( "<img src='" + _imageURL + "' />" );
+			if(_thumbnailURL) _element.append( "<img src='" + _thumbnailURL + "' />" );
+			else if(_iconURL) _element.append( "<img src='" + _iconURL + "' class='Icon' />" );
+
+			if(_title) _element.append( "<div class='AttachmentTitle'>" + _title + "</div>" );
 
 			_removeButton = new tutons.components.buttons.Button();
 			_removeButton.getElement().addClass( "RemoveButton" );
@@ -65,11 +72,11 @@ function( tutons )
 		construct();
 	}
 
-	return function( imageURL )
+	return function( id, title, thumbnailURL, iconURL )
 	{
-		ImageItem.prototype = new tutons.core.controller.event.EventDispatcher();
-		ImageItem.prototype.constructor = ImageItem;
+		AttachmentItem.prototype = new tutons.core.controller.event.EventDispatcher();
+		AttachmentItem.prototype.constructor = AttachmentItem;
 
-		return new ImageItem( imageURL );
+		return new AttachmentItem( id, title, thumbnailURL, iconURL );
 	}
 });

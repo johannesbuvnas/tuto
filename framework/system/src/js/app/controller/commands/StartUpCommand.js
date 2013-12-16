@@ -2,15 +2,13 @@ define(
 [
 	"tutons",
 	"app/view/MainViewComponent",
-	"app/view/MainMediator",
-	"app/model/ajax/GetMetaBoxAjaxProxy"
+	"app/view/MainMediator"
 ],
 function
 ( 
 	tutons,
 	MainViewComponent,
-	MainMediator,
-	GetMetaBoxAjaxProxy
+	MainMediator
 )
 {
 	function StartUpCommand()
@@ -21,7 +19,6 @@ function
 		/* METHODS */
 		var prepModels = function()
 		{
-			_this.getFacade().model.registerProxy( new GetMetaBoxAjaxProxy() );
 		};
 
 		var prepCommands = function()

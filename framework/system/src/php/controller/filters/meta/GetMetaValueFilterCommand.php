@@ -14,9 +14,9 @@ class GetMetaValueFilterCommand extends FilterCommand
 	{
 		switch( $metaType )
 		{
-			case MetaType::IMAGE_LIST:
+			case MetaType::ATTACHMENT:
 
-				return $this->constructImageListMap( $metaValue );
+				return $this->constructAttachmentMap( $metaValue );
 
 			break;
 		}
@@ -24,7 +24,7 @@ class GetMetaValueFilterCommand extends FilterCommand
 		return $metaValue;
 	}
 
-	private function constructImageListMap( $attachmentIDMap )
+	private function constructAttachmentMap( $attachmentIDMap )
 	{
 		$map = array();
 
@@ -32,12 +32,18 @@ class GetMetaValueFilterCommand extends FilterCommand
 		{
 			foreach( $attachmentIDMap as $attachmentID )
 			{
-				$src = wp_get_attachment_image_src( $attachmentID, "thumbnail" );
+				$thumb = wp_get_attachment_image_src( $attachmentID, "thumbnail", false );
+				$icon = wp_get_attachment_image_src( $attachmentID, "thumbnail", true );
 
-				$map[] = array(
+				$item = array
+				(
 					"id" => $attachmentID,
-					"thumbnail" => $src[0]
+					"title" => basename ( get_attached_file( $attachmentID ) ),
+					"thumbnailURL" => $thumb ? $thumb[0] : NULL,
+					"iconURL" => $icon ? $icon[0] : NULL,
 				);
+
+				$map[] = $item;
 			}
 		}
 

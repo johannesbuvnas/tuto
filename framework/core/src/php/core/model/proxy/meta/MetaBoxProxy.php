@@ -7,6 +7,8 @@ class MetaBoxProxy extends Proxy
 	const WP_HOOK_REGISTER = "add_meta_boxes";
 	const WP_HOOK_SAVE = "save_post";
 
+	protected $_registeredSaveHooks = array();
+
 	public function onRegister()
 	{
 		/* ACTIONS */
@@ -18,8 +20,6 @@ class MetaBoxProxy extends Proxy
 		
 		/* FILTERS */
 		$this->getFacade()->controller->registerCommand( new GetMetaValueFilterCommand() );
-
-		add_action( self::WP_HOOK_SAVE, array( $this, "onSavePost") );
 	}
 
 	public function add( MetaBox $item, $key = NULL )
@@ -31,6 +31,16 @@ class MetaBoxProxy extends Proxy
 			foreach( $this->getFacade()->model->getProxy( PostTypeProxy::NAME )->getMap() as $postTypeVO )
 			{
 				if($item->hasPostType( $postTypeVO->getName() )) $postTypeVO->addMetaBox( $item );
+			}
+		}
+
+		foreach($item->getSupportedPostTypes() as $postType)
+		{
+			$hook = $this->getSaveHook($postType);
+			if(!in_array($hook, $this->_registeredSaveHooks))
+			{
+				array_push($this->_registeredSaveHooks, $hook);
+				add_action( $this->getSaveHook($postType), array( $this, "onSavePost") );
 			}
 		}
 
@@ -81,6 +91,16 @@ class MetaBoxProxy extends Proxy
 		}
 
 		return TRUE;
+	}
+
+	/* SET AND GET */
+	private function getSaveHook( $postType )
+	{
+		$hook = self::WP_HOOK_SAVE;
+		if($postType != "post" && $postType != "page" && $postType != "attachment") $hook = $hook . "_" . $postType;
+		else if($postType == "attachment") $hook = "edit_attachment";
+
+		return $hook;
 	}
 
 	/* EVENT HANDLERS */
