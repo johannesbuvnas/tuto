@@ -10,6 +10,6 @@ class AdminFooterCommand extends ActionCommand
 
 	function execute()
 	{
-		do_action( Actions::RENDER_WP_EDITOR );
+		do_action( ActionCommand::RENDER_WP_EDITOR );
 	}
 }

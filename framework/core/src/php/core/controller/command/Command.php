@@ -7,7 +7,7 @@ class Command extends CoreClass implements ICommand
 
 	/* VARS */
 	protected $_name;
-	protected $_executionLimits = -1;
+	protected $_executionLimit = -1;
 	protected $_executions = 0;
 
 
@@ -42,14 +42,14 @@ class Command extends CoreClass implements ICommand
 		return $this->_name;
 	}
 
-	public function setExecutionLimits( int $limitsCount )
+	public function setExecutionLimit( int $limit )
 	{
-		$this->_executionLimits = $limitsCount;
+		$this->_executionLimit = $limit;
 	}
 
-	public function getExecutionLimits()
+	public function getExecutionLimit()
 	{
-		return $this->_executionLimits;
+		return $this->_executionLimit;
 	}
 
 	public function getExecutionCount()
@@ -59,7 +59,7 @@ class Command extends CoreClass implements ICommand
 
 	public function hasReachedExecutionLimit()
 	{
-		return $this->_executionLimits > -1 && $this->_executions >= $this->_executionLimits;
+		return $this->_executionLimit > -1 && $this->_executions >= $this->_executionLimit;
 	}
 
 	/**
@@ -73,4 +73,16 @@ class Command extends CoreClass implements ICommand
 
 		return call_user_func_array( array( $this, "execute" ), func_get_args() );
 	}
+}
+
+interface ICommand
+{
+	public function setName( $name );
+	public function getName();
+	public function register();
+	public function setExecutionLimit( int $limit );
+	public function getExecutionLimit();
+	public function getExecutionCount();
+	public function hasReachedExecutionLimit();
+	public function preExecution();
 }

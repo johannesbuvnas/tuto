@@ -5,7 +5,7 @@ class RenderWPEditorCommand extends ActionCommand
 {
 	function __construct()
 	{
-		parent::__construct( Actions::RENDER_WP_EDITOR );
+		parent::__construct( ActionCommand::RENDER_WP_EDITOR );
 	}
 
 	function execute()

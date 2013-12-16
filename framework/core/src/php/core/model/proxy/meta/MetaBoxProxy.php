@@ -20,6 +20,7 @@ class MetaBoxProxy extends Proxy
 		
 		/* FILTERS */
 		$this->getFacade()->controller->registerCommand( new GetMetaValueFilterCommand() );
+		$this->getFacade()->controller->registerCommand( new GetMetaDatFilter() );
 	}
 
 	public function add( MetaBox $item, $key = NULL )
@@ -72,7 +73,7 @@ class MetaBoxProxy extends Proxy
 
 	public function renderMetaBox( $name, $postID )
 	{
-		do_action( Actions::RENDER_META_BOX, $name, $postID );
+		do_action( ActionCommand::RENDER_META_BOX, $name, $postID );
 	}
 
 	private function postSave( $metaBox, $postID )
@@ -106,7 +107,7 @@ class MetaBoxProxy extends Proxy
 	/* EVENT HANDLERS */
 	public function onRenderMetaBox( $post, $args )
 	{
-		if( !$this->getFacade()->controller->hasCommand( Actions::RENDER_WP_EDITOR ) ) $this->getFacade()->controller->registerCommand( new RenderWPEditorCommand() );
+		if( !$this->getFacade()->controller->hasCommand( ActionCommand::RENDER_WP_EDITOR ) ) $this->getFacade()->controller->registerCommand( new RenderWPEditorCommand() );
 		$this->renderMetaBox( $args['args']['name'], $post->ID );
 	}
 

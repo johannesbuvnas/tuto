@@ -6,7 +6,7 @@ class GetMetaValueFilterCommand extends FilterCommand
 
 	function __construct()
 	{
-		parent::__construct( FilterCommands::META_VALUE );
+		parent::__construct( FilterCommand::META_VALUE );
 		$this->acceptedArguments = 2;	
 	}
 
@@ -35,12 +35,17 @@ class GetMetaValueFilterCommand extends FilterCommand
 				$thumb = wp_get_attachment_image_src( $attachmentID, "thumbnail", false );
 				$icon = wp_get_attachment_image_src( $attachmentID, "thumbnail", true );
 
+				$title = basename ( get_attached_file( $attachmentID ) );
+
 				$item = array
 				(
 					"id" => $attachmentID,
-					"title" => basename ( get_attached_file( $attachmentID ) ),
+					"title" => $title,
 					"thumbnailURL" => $thumb ? $thumb[0] : NULL,
 					"iconURL" => $icon ? $icon[0] : NULL,
+					"permalink" => get_attachment_link( $attachmentID ),
+					"url" => wp_get_attachment_url( $attachmentID ),
+					"fileType" => wp_check_filetype( $title )
 				);
 
 				$map[] = $item;

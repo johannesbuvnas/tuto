@@ -4,8 +4,12 @@ namespace tutons;
 class ActionCommand extends Command
 {
 	/* COMMAND NAMES BY TUTO */
-	const TUTO_FRAMEWORK_INITIALIZED = "tuto_init";
-	const FACADE_READY = "tuto_facade_ready";
+	const START_UP = "tuto/action/startup";
+
+	const FACADE_READY = "tuto/action/facade/ready";
+
+	const RENDER_META_BOX = "tuto/action/render/metabox";
+	const RENDER_WP_EDITOR = "tuto/action/render/wp_editor";
 	
 	/* PUBLIC VARS */
 	public $priority = 10;

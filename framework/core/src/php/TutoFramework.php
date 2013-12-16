@@ -64,7 +64,7 @@ final class TutoFramework
 
 		require_once( self::$_root.'/system/bootstrap.php' );
 
-		do_action( ActionCommand::TUTO_FRAMEWORK_INITIALIZED );
+		do_action( ActionCommand::START_UP );
 
 		return true;
 	}

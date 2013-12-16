@@ -5,7 +5,7 @@ class RenderMetaBoxProxyCommand extends ActionCommand
 {
 	function __construct()
 	{
-		parent::__construct( Actions::RENDER_META_BOX );
+		parent::__construct( ActionCommand::RENDER_META_BOX );
 		$this->acceptedArguments = 2;
 	}
 

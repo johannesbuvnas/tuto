@@ -1,13 +1,13 @@
 <?php
 namespace tutons;
 
-class ImageSizeProxy extends Proxy
+final class ImageSizeProxy extends Proxy
 {
 	const NAME = __CLASS__;
 
-	function __construct()
+	function onRegister()
 	{
-
+		$this->getFacade()->controller->registerCommand( new ImageSizeSelectionFilter() );
 	}
 
 	public function add( ImageSize $item )

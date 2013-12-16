@@ -129,6 +129,4 @@ interface IMediator
 	public function getName();
 	public function setTemplate( $templateReference );
 	public function getTemplate();
-	public function setContent( $content );
-	public function getContent();
 }
