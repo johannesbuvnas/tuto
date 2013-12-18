@@ -18,6 +18,11 @@ class CoreClass
 		return Facade::getInstance( $this->_facadeKey );
 	}
 
+	public function getSystem()
+	{
+		return Facade::getInstance( Facade::KEY_SYSTEM );
+	}
+
 	/**
 	*	Called by the framework when registered and in the facade scope.
 	*/

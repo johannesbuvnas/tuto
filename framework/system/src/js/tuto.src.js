@@ -5,7 +5,7 @@ function( $ )
 {
 	return new function()
 	{
-	// begin tutons
+	// begin tuto
 
 		/* PRIVATE REFERENCES */
 		var _ns = this;
@@ -96,8 +96,6 @@ function( $ )
 
 						Facade.instanceMap[ key ] = _this;
 
-						console.log( "Facade::construct:", _key );
-
 						initializeModel();
 						initializeController();
 						initializeView();
@@ -128,6 +126,12 @@ function( $ )
 						return _key;
 					};
 
+					/* EVENTS */
+					this.onRegister = function()
+					{
+						console.log("tt");
+					};
+
 					construct( key );
 				}
 
@@ -154,11 +158,11 @@ function( $ )
 
 			this.model = new function()
 			{
-			// begin tutons.model
+			// begin tuto.model
 
 				this.proxy = new function()
 				{
-				// begin tutons.model.proxy
+				// begin tuto.model.proxy
 
 					this.Proxy = function( name )
 					{
@@ -211,7 +215,7 @@ function( $ )
 						return new Proxy( name );
 					};
 
-				// end tutons.model.proxy
+				// end tuto.model.proxy
 				};
 
 				this.Model = new function()
@@ -228,8 +232,6 @@ function( $ )
 							_facadeKey = key;
 
 							Model.instanceMap[ _facadeKey ] = _this;
-
-							console.log( "Model::construct:", _facadeKey );
 						};
 
 						/* METHODS */
@@ -279,16 +281,16 @@ function( $ )
 					return Model;
 				};
 
-			// end tutons.model
+			// end tuto.model
 			};
 
 			this.view = new function()
 			{
-			// begin tutons.view
+			// begin tuto.view
 
 				this.mediator = new function()
 				{
-				//begin tutons.view.mediator
+				//begin tuto.view.mediator
 
 					this.Mediator = function( name, viewComponent )
 					{
@@ -338,7 +340,7 @@ function( $ )
 							/* EVENTS */
 							this.onRegister = function()
 							{
-								console.log( "Mediator::onRegister( " + _this.getName() + " )" );
+								// console.log( "Mediator::onRegister( " + _this.getName() + " )" );
 							};
 
 							construct( name, viewComponent );
@@ -350,7 +352,7 @@ function( $ )
 						return new Mediator( name, viewComponent );
 					};
 
-				//end tutons.view.mediator
+				//end tuto.view.mediator
 				};
 
 				this.View = function( key )
@@ -367,8 +369,6 @@ function( $ )
 							_facadeKey = key;
 
 							_ns.core.view.View.instanceMap[ _facadeKey ] = _this;
-
-							console.log( "View::construct:", _facadeKey );
 						};
 
 						/* ACTIONS */
@@ -424,16 +424,16 @@ function( $ )
 					return null;
 				};
 
-			// end tutons.view
+			// end tuto.view
 			};
 
 			this.controller = new function()
 			{
-			// begin tutons.controller
+			// begin tuto.controller
 
 				this.command = new function()
 				{
-				// begin tutons.controller.command
+				// begin tuto.controller.command
 					
 					this.Command = function()
 					{
@@ -452,7 +452,7 @@ function( $ )
 						return new Command();
 					};
 
-				// end tutons.controller.command
+				// end tuto.controller.command
 				};
 
 				this.Controller = new function()
@@ -471,8 +471,6 @@ function( $ )
 							_view = _ns.core.view.View.getInstance( _facadeKey );
 
 							Controller.instanceMap[ _facadeKey ] = _this;
-
-							console.log( "Controller::construct:", _facadeKey );
 						};
 
 						/* ACTIONS */
@@ -528,7 +526,7 @@ function( $ )
 
 				this.event = new function()
 				{
-				// begin tutons.controller.event
+				// begin tuto.controller.event
 
 					this.Event = function( name, body )
 					{
@@ -565,7 +563,7 @@ function( $ )
 						/* ACTIONS */
 						this.dispatchEvent = function( event )
 						{
-							// if( !(event instanceof _ns.core.controller.event.Event) ) return console.log( "EventDispatcher::dispatch - event isnt an instance of tutons.core.controller.event.Event" );
+							// if( !(event instanceof _ns.core.controller.event.Event) ) return console.log( "EventDispatcher::dispatch - event isnt an instance of tuto.core.controller.event.Event" );
 
 							if( _listenerMap[ event.getName() ] )
 							{
@@ -611,16 +609,16 @@ function( $ )
 						};
 					};
 
-				// end tutons.controller.event
+				// end tuto.controller.event
 				};
 
-			// end tutons.controller
+			// end tuto.controller
 			};
 		};
 
 		this.components = new function()
 		{
-		// tutons.components
+		// tuto.components
 
 			this.controller = new function()
 			{
@@ -637,10 +635,10 @@ function( $ )
 
 			this.model = new function()
 			{
-				// tutons.model
+				// tuto.model
 				this.proxy = new function()
 				{
-				// begin tutons.components.model.proxy
+				// begin tuto.components.model.proxy
 
 					this.Proxy = function( name )
 					{
@@ -754,11 +752,11 @@ function( $ )
 						construct( name );
 					};
 
-				// end tutons.components.model.proxy
+				// end tuto.components.model.proxy
 				};
 				this.vo = new function()
 				{
-				// tutons.components.model.vo
+				// tuto.components.model.vo
 
 						this.ValueObject = function( name, value )
 						{
@@ -804,7 +802,7 @@ function( $ )
 							construct( name, value )
 						};
 
-				// end tutons.components.model.vo
+				// end tuto.components.model.vo
 				};
 
 				this.Model = function()
@@ -887,12 +885,12 @@ function( $ )
 					construct();
 				};
 
-			// tutons.model
+			// tuto.model
 			};
 
 			this.buttons = new function()
 			{
-			// tutons.components.buttons
+			// tuto.components.buttons
 
 				this.Button = function( label )
 				{
@@ -929,16 +927,16 @@ function( $ )
 					return new Button( label );
 				};
 
-			// end tutons.components.buttons
+			// end tuto.components.buttons
 			};
 
 			this.form = new function()
 			{
-			// tutons.components.form
+			// tuto.components.form
 
 				this.input = new function()
 				{
-				// tutons.components.form.input
+				// tuto.components.form.input
 
 					this.Input = function()
 					{
@@ -1693,14 +1691,14 @@ function( $ )
 						return new FilterMultiSelector();
 					};
 
-				// end tutons.components.form.input
+				// end tuto.components.form.input
 				};
-			// end tutons.components.form
+			// end tuto.components.form
 			};
-		// end tutons.components
+		// end tuto.components
 		};
 
 		// init();
-	// end tutons
+	// end tuto
 	};
 });

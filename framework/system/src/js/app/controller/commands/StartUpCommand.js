@@ -1,12 +1,12 @@
 define(
 [
-	"tutons",
+	"tuto",
 	"app/view/MainViewComponent",
 	"app/view/MainMediator"
 ],
 function
 ( 
-	tutons,
+	tuto,
 	MainViewComponent,
 	MainMediator
 )
@@ -33,14 +33,13 @@ function
 
 		this.execute = function( event )
 		{
-			console.log("StartUpCommand:: Hello World!");
 			prepModels();
 			prepCommands();
 			prepViews();
 		};
 	}
 
-	StartUpCommand.prototype = new tutons.core.controller.command.Command();
+	StartUpCommand.prototype = new tuto.core.controller.command.Command();
 	StartUpCommand.prototype.constructor = StartUpCommand;
 
 	return StartUpCommand;

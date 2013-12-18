@@ -1,6 +1,5 @@
 <?php
 namespace tutons;
-
 wp_nonce_field( $metaBox->getName(), $metaBox->getName() . "_nonce" );
 ?>
 <?php

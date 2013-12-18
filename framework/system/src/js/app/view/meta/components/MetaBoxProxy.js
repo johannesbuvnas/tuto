@@ -1,9 +1,10 @@
 define(
 [
-	"tutons",
+	"tuto",
+	"jquery",
 	"app/view/meta/components/MetaBox"
 ],
-function( tutons, MetaBox )
+function( tuto, $, MetaBox )
 {
 	function MetaBoxProxy( element )
 	{
@@ -89,7 +90,7 @@ function( tutons, MetaBox )
 				key : 0
 			};
 
-			console.log(data);
+			// console.log(data);
 
 			$.ajax({
 				type: "post",
@@ -145,7 +146,6 @@ function( tutons, MetaBox )
 
 		var onGetMetaBoxHTML = function(e)
 		{
-			console.log(e);
 			addMetaBox( $( e ), true ).reset();
 		};
 

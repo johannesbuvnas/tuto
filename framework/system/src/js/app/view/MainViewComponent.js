@@ -1,11 +1,11 @@
 define(
 [
-	"tutons",
+	"tuto",
 	"app/view/meta/MetaBoxModelViewComponent"
 ],
 function
 ( 
-	tutons,
+	tuto,
 	MetaBoxModelViewComponent
 )
 {
@@ -26,7 +26,7 @@ function
 		construct();
 	}
 
-	MainViewComponent.prototype = new tutons.core.controller.event.EventDispatcher();
+	MainViewComponent.prototype = new tuto.core.controller.event.EventDispatcher();
 	MainViewComponent.prototype.constructor = MainViewComponent;
 
 	return MainViewComponent;

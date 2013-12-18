@@ -42,7 +42,7 @@ class Command extends CoreClass implements ICommand
 		return $this->_name;
 	}
 
-	public function setExecutionLimit( int $limit )
+	public function setExecutionLimit( $limit )
 	{
 		$this->_executionLimit = $limit;
 	}
@@ -80,7 +80,7 @@ interface ICommand
 	public function setName( $name );
 	public function getName();
 	public function register();
-	public function setExecutionLimit( int $limit );
+	public function setExecutionLimit( $limit );
 	public function getExecutionLimit();
 	public function getExecutionCount();
 	public function hasReachedExecutionLimit();

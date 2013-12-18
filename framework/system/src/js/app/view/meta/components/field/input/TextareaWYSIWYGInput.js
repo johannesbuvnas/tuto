@@ -1,8 +1,8 @@
 define([
-	"tutons",
+	"tuto",
 	"jquery"
 ],
-function( tutons, jquery )
+function( tuto, $ )
 {
 	function TextareaWYSIWYGInput( content, id, settings )
 	{
@@ -25,8 +25,6 @@ function( tutons, jquery )
 		var draw = function()
 		{
 			_this.setElement( $( "<div></div>" ) );
-
-			switchEditors.go( "tutons-editor", "tmce" );
 
 			requestEditor();
 		};
@@ -100,7 +98,7 @@ function( tutons, jquery )
 			// console.log(qtags);
 			// console.log( switchEditors.go( _id ) );
 
-			quicktags( {id : _id} );
+			// quicktags( {id : _id} );
 			tinyMCE.execCommand( "mceAddControl", false, _id );
 			// tinymce.init( tinyMCEPreInit.mceInit[ _id ] );
 
@@ -136,7 +134,7 @@ function( tutons, jquery )
 
 	return function( content, id, settings )
 	{
-		TextareaWYSIWYGInput.prototype = new tutons.components.form.input.Input();
+		TextareaWYSIWYGInput.prototype = new tuto.components.form.input.Input();
 		TextareaWYSIWYGInput.prototype.constructor = TextareaWYSIWYGInput;
 
 		return new TextareaWYSIWYGInput( content, id, settings );

@@ -7,12 +7,14 @@ class Facade
 	/* PUBLIC CONSTANT VARS */
 	const NAME = __NAMESPACE__;
 
-	const KEY_SYSTEM_FACADE = "tuto-system-facade";
+	const KEY_SYSTEM = "tuto/facade/system";
 
 	/* PUBLIC STATIC VARS */
 
 	/* PUBLIC VARS */
 	public $noticeModel;
+
+	public $system;
 
 	/* PROTECTED VARS */
 	private $_initialized = false;
@@ -57,8 +59,14 @@ class Facade
 
 	public static function getInstance( $key )
 	{
-		if( array_key_exists( $key, self::$_instanceMap ) ) return self::$_instanceMap[ $key ];
-		else return new Facade( $key );
+		if( array_key_exists( $key, self::$_instanceMap ) )
+		{
+			return self::$_instanceMap[ $key ];
+		}
+		else
+		{
+			return new Facade( $key );
+		}
 	}
 
 	/* PUBLIC METHODS */
@@ -91,60 +99,6 @@ class Facade
 			else $_SESSION[ Cookies::ADMIN_NOTICES ] = array( 0 => new Notice($message, $type) );
 		}
 	}
-
-	// public function renderView($view, $data = null)
-	// {
-	// 	if(is_string($view)) $view = $this->factory( $view );
-
-	// 	if($data)
-	// 	{
-	// 		foreach($data as $key => $value)
-	// 		{
-	// 			$view->$key = $value;
-	// 		}
-	// 	}
-
-	// 	$view->facade = $this;
-	// 	$view->ready();
-	// 	$view->render();
-
-	// 	return $view;
-	// }
-
-	// public function getViewOutput($view)
-	// {
-	// 	if(is_string($view)) $view = $this->factory( $view );
-		
-	// 	$view->facade = $this;
-	// 	$view->ready();
-	// 	return $view->getOutput();
-	// }
-
-	// public function factory($class, $parameters = array())
-	// {
-	// 	if(is_string($class))
-	// 	{
-	// 		$reflectionClass = new \ReflectionClass( $class );
-
-	// 		if(!is_array($parameters)) $parameters = array( $parameters );
-
-	// 		$coreClass = $reflectionClass->newInstanceArgs( $parameters );
-	// 		$coreClass->facade = $this;
-	// 		if( method_exists( $coreClass, 'ready' ) ) $coreClass->ready();
-	// 		return $coreClass;
-	// 	}
-	// 	else 
-	// 	{
-	// 		$class->facade = $this;
-	// 		if( method_exists( $class, 'ready' ) ) $class->ready();
-	// 		return $class;
-	// 	}
-	// }
-
-	// public function factoryCustomPostType($postType, $parameters = array())
-	// {
-	// 	return $this->postTypeModel->factory( $postType, $parameters );
-	// }
 
 	public function getURL( $relativePath = null )
 	{

@@ -1,10 +1,10 @@
 define(
 [
-	"tutons",
+	"tuto",
 	"jquery",
 	"app/view/meta/components/field/input/attachment/AttachmentItem"
 ],
-function( tutons, jquery, AttachmentItem )
+function( tuto, $, AttachmentItem )
 {
 	function AttachmentList( attributes )
 	{
@@ -31,7 +31,7 @@ function( tutons, jquery, AttachmentItem )
 			_inputProxy = $( "<div class='HiddenElement'></div>" );
 			_element.append( _element );
 
-			_addButton = new tutons.components.buttons.Button();
+			_addButton = new tuto.components.buttons.Button();
 			_addButton.getElement().addClass( "AddButton" );
 			_addButton.getElement().on( "click", onOpenClick );
 			_element.append( _addButton.getElement() );
@@ -130,7 +130,6 @@ function( tutons, jquery, AttachmentItem )
 
 			selection.each(function(attachment)
 			{
-				console.log(attachment);
 			    if(!addAttachment( attachment.id, attachment.attributes.filename, attachment.attributes.sizes ? attachment.attributes.sizes.thumbnail.url : null, attachment.attributes.icon )) return;
 			});
 		};
@@ -140,7 +139,7 @@ function( tutons, jquery, AttachmentItem )
 
 	return function( attributes )
 	{
-		AttachmentList.prototype = new tutons.components.form.input.Input();
+		AttachmentList.prototype = new tuto.components.form.input.Input();
 		AttachmentList.prototype.constructor = AttachmentList;
 
 		return new AttachmentList( attributes );

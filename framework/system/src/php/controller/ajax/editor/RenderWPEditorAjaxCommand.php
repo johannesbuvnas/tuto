@@ -13,7 +13,7 @@ class RenderWPEditorAjaxCommand extends AjaxCommand
 		$content = array_key_exists( "content", $_REQUEST ) ? stripslashes( $_REQUEST[ 'content' ] ) : "";
 		$id = $_REQUEST[ 'id' ];
 		$settings = array(
-			// "quicktags" => FALSE,
+			"quicktags" => FALSE,
 			// 'textarea_rows' => 30,
 		);		
 

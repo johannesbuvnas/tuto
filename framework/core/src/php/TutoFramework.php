@@ -91,6 +91,7 @@ final class TutoFramework
 
 		$facade = new $facadeClassReference();
 		self::$facadeMap[ $facade->getKey() ] = new ApplicationVO( $facadeClassReference, $facade->getKey(), $appRoot );
+		if( $facade->getKey() != Facade::KEY_SYSTEM ) $facade->system = Facade::getInstance( Facade::KEY_SYSTEM );
 		$facade->onRegister();
 		do_action( ActionCommand::FACADE_READY, self::$facadeMap[ $facade->getKey() ] );
 
@@ -133,12 +134,5 @@ final class TutoFramework
 	private static function hasImportedApplication( $facadeClassReference )
 	{
 		return class_exists( $facadeClassReference );
-
-		// foreach(self::$facadeMap as $applicationVO)
-		// {
-		// 	if($applicationVO->getFacadeClassReference() == $facadeClassReference) return TRUE;
-		// }
-
-		// return FALSE;
 	}
 }

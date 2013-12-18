@@ -1,7 +1,8 @@
 define([
-	"tutons"
+	"tuto",
+	"jquery"
 ],
-function( tutons )
+function( tuto, $ )
 {
 	function AttachmentItem( id, title, thumbnailURL, iconURL )
 	{
@@ -26,7 +27,7 @@ function( tutons )
 		{
 			_element = $( "<div class='AttachmentItem'></div>" );
 
-			_this.input = new tutons.components.form.input.Input();
+			_this.input = new tuto.components.form.input.Input();
 			_this.input.setValue( _id );
 			_element.append( _this.input.getElement() );
 
@@ -35,7 +36,7 @@ function( tutons )
 
 			if(_title) _element.append( "<div class='AttachmentTitle'>" + _title + "</div>" );
 
-			_removeButton = new tutons.components.buttons.Button();
+			_removeButton = new tuto.components.buttons.Button();
 			_removeButton.getElement().addClass( "RemoveButton" );
 			_removeButton.getElement().addClass( "HiddenElement" );
 			_removeButton.getElement().on( "click", onRemove );
@@ -66,7 +67,7 @@ function( tutons )
 		{
 			_element.remove();
 
-			_this.dispatchEvent( new tutons.core.controller.event.Event( "remove" ) );
+			_this.dispatchEvent( new tuto.core.controller.event.Event( "remove" ) );
 		};
 
 		construct();
@@ -74,7 +75,7 @@ function( tutons )
 
 	return function( id, title, thumbnailURL, iconURL )
 	{
-		AttachmentItem.prototype = new tutons.core.controller.event.EventDispatcher();
+		AttachmentItem.prototype = new tuto.core.controller.event.EventDispatcher();
 		AttachmentItem.prototype.constructor = AttachmentItem;
 
 		return new AttachmentItem( id, title, thumbnailURL, iconURL );

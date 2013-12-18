@@ -29,7 +29,7 @@ div.MetaBox div.title
 	font-size: 14px;
 	padding: 15px 20px;
 	background: #f1f1f1;
-	cursor: move;
+	/*cursor: move;*/
 	color: #333;
 	font-weight: 600;
 	text-decoration: underline;

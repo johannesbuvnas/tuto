@@ -19,9 +19,27 @@ class GetMetaValueFilterCommand extends FilterCommand
 				return $this->constructAttachmentMap( $metaValue );
 
 			break;
+			case MetaType::TEXTAREA_WYSIWYG:
+
+				return $this->constructRichTextAreaMap( $metaValue );
+
+			break;
 		}
 
 		return $metaValue;
+	}
+
+	private function constructRichTextAreaMap( $metaValue )
+	{
+		if(!is_array($metaValue) || count($metaValue) == 0) return $metaValue;
+
+		$newMap = array();
+		foreach( $metaValue as $key => $value )
+		{
+			$newMap[$key] = apply_filters( "the_content", $value );
+		}
+
+		return $newMap;
 	}
 
 	private function constructAttachmentMap( $attachmentIDMap )

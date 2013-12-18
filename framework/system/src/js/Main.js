@@ -1,16 +1,52 @@
 define([
-	"tutons",
+	"jquery",
+	"tuto",
 	"app/AppConstants",
 	"app/controller/commands/StartUpCommand"
 ],
-function( tutons, AppConstants, StartUpCommand )
+function( 
+	$,
+	tuto,
+	AppConstants,
+	StartUpCommand 
+	)
 {
-	$(window).load(function()
+	return $( window ).load(function()
 	{
-		var facade = new tutons.core.Facade( AppConstants.KEY );
-		
-		facade.controller.registerCommand( AppConstants.STARTUP, StartUpCommand );
-		
-		facade.dispatch( AppConstants.STARTUP, {} );
+		function AppFacade()
+		{
+			var _this = this;
+
+			/* PRIVATE METHODS */
+			var prepModel = function()
+			{
+
+			};
+
+			var prepView = function()
+			{
+
+			};
+
+			var prepController = function()
+			{
+				_this.controller.registerCommand( AppConstants.STARTUP, StartUpCommand );
+			};
+
+			// Construct
+			(function()
+			{
+				prepModel();
+				prepView();
+				prepController();
+
+				_this.dispatch( AppConstants.STARTUP, {} );
+			})();
+		}
+
+		AppFacade.prototype = tuto.core.Facade.getInstance( AppConstants.KEY );
+		AppFacade.prototype.constructor = AppFacade;
+
+		return new AppFacade();
 	});
 });

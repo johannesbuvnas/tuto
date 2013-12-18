@@ -1,10 +1,10 @@
 define([
-	"tutons",
+	"tuto",
 	"app/view/meta/components/field/input/TextareaWYSIWYGInput",
 	"base64",
 	"app/view/meta/components/field/input/attachment/AttachmentList"
 ],
-function( tutons, TextareaWYSIWYGInput, base64, AttachmentList )
+function( tuto, TextareaWYSIWYGInput, Base64, AttachmentList )
 {
 	function MetaField( metaBoxID, element )
 	{
@@ -28,7 +28,6 @@ function( tutons, TextareaWYSIWYGInput, base64, AttachmentList )
 
 		var draw = function()
 		{
-			console.log(_attributes);
 			_label = _element.find( "label" );
 			_label.attr( "for", _attributes.name + "_" + _metaBoxID );
 
@@ -48,11 +47,11 @@ function( tutons, TextareaWYSIWYGInput, base64, AttachmentList )
 				break;
 				case "selector_single":
 
-					_inputComponent = new tutons.components.form.input.SingleSelector();
+					_inputComponent = new tuto.components.form.input.SingleSelector();
 					_inputComponent.setLabel( _attributes.title );
 					_label.remove();
 
-					var proxy = new tutons.components.model.proxy.Proxy();
+					var proxy = new tuto.components.model.proxy.Proxy();
 
 					for(var key in _attributes.type.settings.options)
 					{
@@ -87,7 +86,7 @@ function( tutons, TextareaWYSIWYGInput, base64, AttachmentList )
 		{
 			if(!_inputComponent) return;
 
-			var event = new tutons.core.controller.event.Event( "change", { name : _attributes.name, value : _inputComponent.getValue() } );
+			var event = new tuto.core.controller.event.Event( "change", { name : _attributes.name, value : _inputComponent.getValue() } );
 			_this.dispatchEvent( event );
 		};
 
@@ -152,7 +151,7 @@ function( tutons, TextareaWYSIWYGInput, base64, AttachmentList )
 
 	return function( metaBoxID, element )
 	{
-		MetaField.prototype = new tutons.core.controller.event.EventDispatcher();
+		MetaField.prototype = new tuto.core.controller.event.EventDispatcher();
 		MetaField.prototype.constructor = MetaField;
 
 		return new MetaField( metaBoxID, element );

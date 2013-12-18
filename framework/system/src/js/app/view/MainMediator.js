@@ -1,11 +1,11 @@
 define(
 [
-	"tutons",
+	"tuto",
 	"app/view/meta/MetaBoxModelMediator"
 ],
 function
 ( 
-	tutons,
+	tuto,
 	MetaBoxModelMediator
 )
 {
@@ -23,7 +23,7 @@ function
 
 	MainMediator.prototype.constructor = MainMediator;
 	MainMediator.prototype.NAME = MainMediator.prototype.constructor.name;
-	MainMediator.prototype = new tutons.core.view.mediator.Mediator( MainMediator.prototype.NAME );
+	MainMediator.prototype = new tuto.core.view.mediator.Mediator( MainMediator.prototype.NAME );
 
 	return MainMediator;
 });
